@@ -6,18 +6,16 @@
 </head>
 
 <body>
-<span th:text="#{cars}">cars</span>
 <table border="1" style="width: 300px">
     <thead>
     <tr>
-        qqqq2qqq
-        <span th:text="${#locale.language}">Date Planted</span>
+        <th th:colspan="2" th:text="#{cars}">cars</th>
     </tr>
     </thead >
     <thead>
     <tr>
-        <th> Name </th>
-        <th> Series </th>
+        <th th:colspan="1" th:text="#{name}">name</th>
+        <th th:colspan="1" th:text="#{serie}">serie</th>
     </tr>
     </thead >
     <tbody>

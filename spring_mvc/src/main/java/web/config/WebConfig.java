@@ -44,6 +44,16 @@ public class WebConfig implements WebMvcConfigurer {
         return thymeleafViewResolver;
     }*/
 
+    @Bean
+    public SpringResourceTemplateResolver templateResolver() {
+        SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
+        templateResolver.setApplicationContext(applicationContext);
+        templateResolver.setPrefix("/WEB-INF/pages/");
+        templateResolver.setSuffix(".html");
+        templateResolver.setCharacterEncoding("UTF-8");
+        return templateResolver;
+    }
+
        @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
@@ -72,7 +82,7 @@ public class WebConfig implements WebMvcConfigurer {
         return templateEngine;
     }*/
 
-    @Bean
+  /*  @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
         //ServletContextTemplateResolver resolver = new ServletContextTemplateResolver();
@@ -87,7 +97,7 @@ public class WebConfig implements WebMvcConfigurer {
         resolver.setOrder(2);
         return resolver;
     }
-
+*/
 
     @Override
     public void configureDefaultServletHandling(
@@ -103,7 +113,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Bean
     public LocaleResolver localeResolver() {
         SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.ENGLISH);
+        //slr.setDefaultLocale(Locale.ENGLISH);
         return slr;
     }
 
