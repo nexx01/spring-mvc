@@ -35,19 +35,27 @@ public class WebConfig implements WebMvcConfigurer {
      * This method is used for configure thymeleaf view resolver.
      * This view resolver have second priority.
      * */
-    @Bean
+  /*  @Bean
     public ViewResolver thymeleafViewResolver() {
         ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
         thymeleafViewResolver.setViewClass(ThymeleafView.class);
         thymeleafViewResolver.setTemplateEngine(templateEngine());
 
         return thymeleafViewResolver;
+    }*/
+
+       @Override
+    public void configureViewResolvers(ViewResolverRegistry registry) {
+        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+        resolver.setTemplateEngine(templateEngine());
+        registry.viewResolver(resolver);
+        ThymeleafViewResolver viewResolver;
+        resolver.setCharacterEncoding("UTF-8");
+        resolver.setContentType("text/html; charset=UTF-8");
     }
 
 
-    /**
-     * This method is used to configure template engine for thymeleaf.
-     * */
+
     @Bean
     public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
@@ -55,6 +63,14 @@ public class WebConfig implements WebMvcConfigurer {
         templateEngine.setEnableSpringELCompiler(true);
         return templateEngine;
     }
+
+/*    @Bean
+    public SpringTemplateEngine templateEngine() {
+        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver());
+        templateEngine.setEnableSpringELCompiler(true);
+        return templateEngine;
+    }*/
 
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
@@ -112,25 +128,11 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
 
-/*
-    @Bean
-    public SpringTemplateEngine templateEngine() {
-        SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-        templateEngine.setTemplateResolver(templateResolver());
-        templateEngine.setEnableSpringELCompiler(true);
-        return templateEngine;
-    }*/
 
 
-/*    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        ThymeleafViewResolver resolver = new ThymeleafViewResolver();
-        resolver.setTemplateEngine(templateEngine());
-        registry.viewResolver(resolver);
-        ThymeleafViewResolver viewResolver;
-        resolver.setCharacterEncoding("UTF-8");
-        resolver.setContentType("text/html; charset=UTF-8");
-    }*/
+
+
+
 
 
 
