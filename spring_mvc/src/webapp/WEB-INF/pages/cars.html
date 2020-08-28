@@ -6,10 +6,12 @@
 </head>
 
 <body>
+<span th:text="#{cars}">cars</span>
 <table border="1" style="width: 300px">
     <thead>
     <tr>
-        <th th:colspan="2">Cars</tr>
+        qqqq2qqq
+        <span th:text="${#locale.language}">Date Planted</span>
     </tr>
     </thead >
     <thead>
@@ -19,9 +21,7 @@
     </tr>
     </thead >
     <tbody>
-    <tr th:if="${cars.empty}">
-        <td colspan="2"> No Cars Available </td>
-    </tr>
+
     <tr th:each="car : ${cars}">
         <td> <span th:text="${car.getName()}"> Name </span></td>
         <td><span th:text="${car.getSeries()}"> Series </span></td>
