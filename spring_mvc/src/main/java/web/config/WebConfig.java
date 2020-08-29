@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.thymeleaf.spring5.SpringTemplateEngine;
@@ -27,6 +28,14 @@ public class WebConfig implements WebMvcConfigurer {
         this.applicationContext = applicationContext;
     }
 
+/* объявление статических ресурсов*/
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+    }
+
+/*Одна из реализаций ITemplateResolver resolves templates using Spring's Resource Resolution mechanism
+ (see ResourceLoader.getResource(String))*/
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
@@ -37,6 +46,8 @@ public class WebConfig implements WebMvcConfigurer {
         return templateResolver;
     }
 
+/*Configure view resolvers to translate String-based view names returned from
+ controllers into concrete View implementations to perform rendering with.*/
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
@@ -55,22 +66,18 @@ public class WebConfig implements WebMvcConfigurer {
         templateEngine.setEnableSpringELCompiler(true);
         return templateEngine;
     }
-
+/*Активизирует обработчик статических ресурсов.*/
     @Override
     public void configureDefaultServletHandling(
             DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
 
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-    }
 
     @Bean
     public LocaleResolver localeResolver() {
-        SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.ENGLISH);
+        CookieLocaleResolver slr = new CookieLocaleResolver();
+        //slr.setDefaultLocale(Locale.ENGLISH);
         return slr;
     }
 
